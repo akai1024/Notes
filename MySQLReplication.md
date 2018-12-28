@@ -103,3 +103,18 @@
 *註2：應為一個整數，一樣可由註1的方式查看*
 
 *註3：應為一個字串，自行在slave上定義*
+
+---
+### mysqld.cnf
+一般來說mysql8會自動啟用binlog，若沒有啟動時可利用這些配置啟動
+
+    server-id=123456
+    log_bin=mysql-bin
+    binlog_format=row
+    binlog_row_image=full
+    expire_logs_days=10
+
+當然，對於每一個mysql instance最好指定不同的[server-id][1]
+
+
+[1]: https://dev.mysql.com/doc/refman/8.0/en/replication-options.html#option_mysqld_server-id 'mysql document'
