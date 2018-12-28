@@ -121,7 +121,7 @@
 
 ---
 ### GTID與master_auto_position
-GTID是global transaction ID的縮寫，mysql用來標記每一個事件的唯一碼
+GTID是global transaction ID的縮寫，mysql用來標記每一個事件的唯一碼  
 可以在mysqld.cnf中透過配置啟動(主從庫都要配置)
 
     gtid_mode=ON(必選)
