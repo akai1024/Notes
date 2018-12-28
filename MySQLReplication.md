@@ -87,6 +87,9 @@
         或是
         show slave status for channel '頻道名稱';
 
+7. 清空所有配置
+
+        reset slave all;
 
 ---
 ### 備註
