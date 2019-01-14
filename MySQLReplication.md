@@ -121,15 +121,15 @@
 
 ---
 ### GTID與master_auto_position
-GTID是global transaction ID的縮寫，mysql用來標記每一個事件的唯一碼
+GTID是global transaction ID的縮寫，mysql用來標記每一個事件的唯一碼  
 可以在mysqld.cnf中透過配置啟動(主從庫都要配置)
 
     gtid_mode=ON(必選)
     enforce-gtid-consistency(必選)
     log-slave-updates=ON(可選，高可用切換)
 
-啟用之後在replication的指令中就可以用master_auto_position=1來自動follow主庫
-省去了指定file與position的困擾
+啟用之後在replication的指令中就可以用master_auto_position=1來自動follow主庫  
+省去了指定file與position的困擾  
 例:
 
     change master to
