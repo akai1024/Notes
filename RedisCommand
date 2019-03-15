@@ -1,0 +1,106 @@
+1、連接操作相關的命令
+quit：關閉連接（connection）
+auth：簡單密碼認證
+
+
+2、對value操作的命令
+exists(key)：確認一個key是否存在
+del(key)：刪除一個key
+type(key)：返回值的類型
+keys(pattern)：返回滿足給定pattern的所有key
+randomkey：隨機返回key空間的一個key
+rename(oldname, newname)：將key由oldname重命名為new​​name，若newname存在則刪除newname表示的key
+dbsize：返回當前數據庫中key的數目
+expire：設定一個key的活動時間（s）
+ttl：獲得一個key的活動時間
+select(index)：按索引查詢
+move(key, dbindex)：將當前數據庫中的key轉移到有dbindex索引的數據庫
+flushdb：刪除當前選擇數據庫中的所有key
+flushall：刪除所有數據庫中的所有key
+
+
+3、對String操作的命令
+set(key, value)：給數據庫中名稱為key的string賦予值value
+get(key)：返回數據庫中名稱為key的string的value
+getset(key, value)：給名稱為key的string賦予上一次的value
+mget(key1, key2,…, key N)：返回庫中多個string（它們的名稱為key1，key2…）的value
+setnx(key, value)：如果不存在名稱為key的string，則向庫中添加string，名稱為key，值為value
+setex(key, time, value)：向庫中添加string（名稱為key，值為value）同時，設定過期時間time
+mset(key1, value1, key2, value2,…key N, value N)：同時給多個string賦值，名稱為key i的string賦值value i
+msetnx(key1, value1, key2, value2,…key N, value N)：如果所有名稱為key i的string都不存在，則向庫中添加string，名稱key i賦值為value i
+incr(key)：名稱為key的string增1操作
+incrby(key, integer)：名稱為key的string增加integer
+decr(key)：名稱為key的string減1操作
+decrby(key, integer)：名稱為key的string減少integer
+append(key, value)：名稱為key的string的值附加value
+substr(key, start, end)：返回名稱為key的string的value的子串
+
+
+4、對List操作的命令
+rpush(key, value)：在名稱為key的list尾添加一個值為value的元素
+lpush(key, value)：在名稱為key的list頭添加一個值為value的元素
+llen(key)：返回名稱為key的list的長度
+lrange(key, start, end)：返回名稱為key的list中start至end之間的元素（下標從0開始，下同）
+ltrim(key, start, end)：截取名稱為key的list，保留start至end之間的元素
+lindex(key, index)：返回名稱為key的list中index位置的元素
+lset(key, index, value)：給名稱為key的list中index位置的元素賦值為value
+lrem(key, count, value)：刪除count個名稱為key的list中值為value的元素。count為0，刪除所有值為value的元素，count>0從頭至尾刪除count個值為value的元素，count<0從尾到頭刪除|count|個值為value的元素。lpop(key)：返回並刪除名稱為key的list中的首元素rpop(key)：返回並刪除名稱為key的list中的尾元素blpop(key1, key2,… key N, timeout)：lpop命令的block版本。即當timeout為0時，若遇到名稱為key i的list不存在或該list為空，則命令結束。如果timeout>0，則遇到上述情況時，等待timeout秒，如果問題沒有解決，則對keyi+1開始的list執行pop操作。
+brpop(key1, key2,… key N, timeout)：rpop的block版本。參考上一命令。
+rpoplpush(srckey, dstkey)：返回並刪除名稱為srckey的list的尾元素，並將該元素添加到名稱為dstkey的list的頭部
+
+
+5、對Set操作的命令
+sadd(key, member)：向名稱為key的set中添加元素member
+srem(key, member) ：刪除名稱為key的set中的元素member
+spop(key) ：隨機返回並刪除名稱為key的set中一個元素
+smove(srckey, dstkey, member) ：將member元素從名稱為srckey的集合移到名稱為dstkey的集合
+scard(key) ：返回名稱為key的set的基數
+sismember(key, member) ：測試member是否是名稱為key的set的元素
+sinter(key1, key2,…key N) ：求交集
+sinterstore(dstkey, key1, key2,…key N) ：求交集並將交集保存到dstkey的集合
+sunion(key1, key2,…key N) ：求並集
+sunionstore(dstkey, key1, key2,…key N) ：求並集並將並集保存到dstkey的集合
+sdiff(key1, key2,…key N) ：求差集
+sdiffstore(dstkey, key1, key2,…key N) ：求差集並將差集保存到dstkey的集合
+smembers(key) ：返回名稱為key的set的所有元素
+srandmember(key) ：隨機返回名稱為key的set的一個元素
+
+
+6、對zset（sorted set）操作的命令
+zadd(key, score, member)：向名稱為key的zset中添加元素member，score用於排序。如果該元素已經存在，則根據score更新該元素的順序。
+zrem(key, member) ：刪除名稱為key的zset中的元素member
+zincrby(key, increment, member) ：如果在名稱為key的zset中已經存在元素member，則該元素的score增加increment；否則向集合中添加該元素，其score的值為increment
+zrank(key, member) ：返回名稱為key的zset（元素已按score從小到大排序）中member元素的rank（即index，從0開始），若沒有member元素，返回“nil”
+zrevrank(key, member) ：返回名稱為key的zset（元素已按score從大到小排序）中member元素的rank（即index，從0開始），若沒有member元素，返回“nil”
+zrange(key, start, end)：返回名稱為key的zset（元素已按score從小到大排序）中的index從start到end的所有元素
+zrevrange(key, start, end)：返回名稱為key的zset（元素已按score從大到小排序）中的index從start到end的所有元素
+zrangebyscore(key, min, max)：返回名稱為key的zset中score >= min且score <= max的所有元素zcard(key)：返回名稱為key的zset的基數zscore(key, element)：返回名稱為key的zset中元素element的score zremrangebyrank(key, min, max)：刪除名稱為key的zset中rank >= min且rank <= max的所有元素zremrangebyscore(key, min, max) ：刪除名稱為key的zset中score >= min且score <= max的所有元素
+zunionstore / zinterstore(dstkeyN, key1,…,keyN, WEIGHTS w1,…wN, AGGREGATE SUM|MIN|MAX)：對N個zset求並集和交集，並將最後的集合保存在dstkeyN中。對於集合中每一個元素的score，在進行AGGREGATE運算前，都要乘以對於的WEIGHT參數。如果沒有提供WEIGHT，默認為1。默認的AGGREGATE是SUM，即結果集合中元素的score是所有集合對應元素進行SUM運算的值，而MIN和MAX是指，結果集合中元素的score是所有集合對應元素中最小值和最大值。
+
+
+7、對Hash操作的命令
+hset(key, field, value)：向名稱為key的hash中添加元素field<—>value
+hget(key, field)：返回名稱為key的hash中field對應的value
+hmget(key, field1, …,field N)：返回名稱為key的hash中field i對應的value
+hmset(key, field1, value1,…,field N, value N)：向名稱為key的hash中添加元素field i<—>value i
+hincrby(key, field, integer)：將名稱為key的hash中field的value增加integer
+hexists(key, field)：名稱為key的hash中是否存在鍵為field的域
+hdel(key, field)：刪除名稱為key的hash中鍵為field的域
+hlen(key)：返回名稱為key的hash中元素個數
+hkeys(key)：返回名稱為key的hash中所有鍵
+hvals(key)：返回名稱為key的hash中所有鍵對應的value
+hgetall(key)：返回名稱為key的hash中所有的鍵（field）及其對應的value
+
+
+8、持久化
+save：將數據同步保存到磁盤
+bgsave：將數據異步保存到磁盤
+lastsave：返回上次成功將數據保存到磁盤的Unix時戳
+shundown：將數據同步保存到磁盤，然後關閉服務
+
+
+9、遠程服務控制
+info：提供服務器的信息和統計
+monitor：實時轉儲收到的請求
+slaveof：改變複製策略設置
+config：在運行時配置Redis服務器
