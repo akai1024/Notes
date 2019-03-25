@@ -117,7 +117,7 @@
     binlog_row_image=full
     expire_logs_days=10
 
-當然，對於每一個mysql instance最好指定不同的[server-id][1]
+當然，對於每一個mysql instance要指定不同的[server-id][1]
 
 ---
 ### GTID與master_auto_position
