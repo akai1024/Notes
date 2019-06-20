@@ -51,3 +51,8 @@
     Connection closed by foreign host.
 
 這時就可以在 `Zookeeper version: 3.4.13-2d71af4dbe22557fda74f9a9b4309b15a7487f03, built on 06/29/2018 00:39 GMT` 這行查看版號
+
+---
+# 其他配置
+preAllocSize：代表每一個交易log產生的檔案大小，預設64MB，每次建立就會直接產生足量大小的檔案，理由是當zookeeper初始化時讀取snapshot與log，不用在定位磁碟位置上花費太多時間，因為64MB是連續完整的磁碟空間
+snapCount：用來指定每一個log產生時可以記錄多少交易，預設是10,000
